@@ -80,6 +80,12 @@ module RailsERD
         :labeldistance => 1.8,
         :fontsize => 7
       }
+      
+      #Color schemes
+      COLOR = {
+        :scheme => "set19",
+        :cycle => ("1".."9").to_a.cycle
+      }
 
       module Simple
         def entity_style(entity, attributes)
@@ -91,7 +97,8 @@ module RailsERD
         def relationship_style(relationship)
           {}.tap do |options|
             options[:style] = :dotted if relationship.indirect?
-
+            options[:color] = COLOR[:cycle].next
+            options[:colorscheme] = COLOR[:scheme]
             # Closed arrows for to/from many.
             options[:arrowhead] = relationship.to_many? ? "normal" : "none"
             options[:arrowtail] = relationship.many_to? ? "normal" : "none"
@@ -108,7 +115,9 @@ module RailsERD
         def relationship_style(relationship)
           {}.tap do |options|
             options[:style] = :dotted if relationship.indirect?
-
+            options[:color] = COLOR[:cycle].next
+            options[:colorscheme] = COLOR[:scheme]
+            
             # Cardinality is "look-across".
             dst = relationship.to_many? ? "crow" : "tee"
             src = relationship.many_to? ? "crow" : "tee"
@@ -128,7 +137,9 @@ module RailsERD
         def relationship_style(relationship)
           {}.tap do |options|
             options[:style] = :dotted if relationship.indirect?
-
+            options[:color] = COLOR[:cycle].next
+            options[:colorscheme] = COLOR[:scheme]
+            
             # Participation is "look-here".
             dst = relationship.source_optional? ? "odot" : "dot"
             src = relationship.destination_optional? ? "odot" : "dot"
@@ -148,7 +159,9 @@ module RailsERD
         def relationship_style(relationship)
           {}.tap do |options|
             options[:style] = :dotted if relationship.indirect?
-
+            options[:color] = COLOR[:cycle].next
+            options[:colorscheme] = COLOR[:scheme]
+            
             options[:arrowsize] = 0.7
             options[:arrowhead] = relationship.to_many? ? "vee" : "none"
             options[:arrowtail] = relationship.many_to? ? "vee" : "none"
@@ -270,6 +283,7 @@ module RailsERD
 
           # Indirect relationships should not influence node ranks.
           options[:constraint] = false if relationship.indirect?
+          
         end
       end
 
