@@ -147,7 +147,7 @@ class EntityTest < ActiveSupport::TestCase
 
   test "attributes should return attributes sorted by name" do
     create_model "Bar", :some_column => :integer, :another_column => :string
-    assert_equal ["another_column", "id", "some_column"], create_entity(Bar).attributes.collect(&:name)
+    assert_equal ["id", "another_column", "some_column"], create_entity(Bar).attributes.collect(&:name)
   end
 
   # Generalized entity =======================================================
