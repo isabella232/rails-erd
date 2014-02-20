@@ -78,12 +78,12 @@ module RailsERD
         :penwidth => 1.0,
         :labelangle => 32,
         :labeldistance => 1.8,
-        :fontsize => 7
+        :fontsize => 7,
+        :colorscheme => "set19"
       }
       
       #Color schemes
       COLOR = {
-        :scheme => "set19",
         :cycle => ("1".."9").to_a.cycle
       }
 
@@ -98,7 +98,6 @@ module RailsERD
           {}.tap do |options|
             options[:style] = :dotted if relationship.indirect?
             options[:color] = COLOR[:cycle].next
-            options[:colorscheme] = COLOR[:scheme]
             # Closed arrows for to/from many.
             options[:arrowhead] = relationship.to_many? ? "normal" : "none"
             options[:arrowtail] = relationship.many_to? ? "normal" : "none"
@@ -116,7 +115,6 @@ module RailsERD
           {}.tap do |options|
             options[:style] = :dotted if relationship.indirect?
             options[:color] = COLOR[:cycle].next
-            options[:colorscheme] = COLOR[:scheme]
             
             # Cardinality is "look-across".
             dst = relationship.to_many? ? "crow" : "tee"
@@ -138,7 +136,6 @@ module RailsERD
           {}.tap do |options|
             options[:style] = :dotted if relationship.indirect?
             options[:color] = COLOR[:cycle].next
-            options[:colorscheme] = COLOR[:scheme]
             
             # Participation is "look-here".
             dst = relationship.source_optional? ? "odot" : "dot"
@@ -160,7 +157,6 @@ module RailsERD
           {}.tap do |options|
             options[:style] = :dotted if relationship.indirect?
             options[:color] = COLOR[:cycle].next
-            options[:colorscheme] = COLOR[:scheme]
             
             options[:arrowsize] = 0.7
             options[:arrowhead] = relationship.to_many? ? "vee" : "none"
